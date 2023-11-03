@@ -14,7 +14,8 @@ builder.Services.AddDbContext<BlogContext>(options =>{
     // options.UseMySql(connectionString, version);
 });
 
-builder.Services.AddScoped<IPostRepository, EfCoreRepository>();
+builder.Services.AddScoped<IPostRepository, EfPostRepository>();
+builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 
 var app = builder.Build();
 

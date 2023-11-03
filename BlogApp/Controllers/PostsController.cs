@@ -1,21 +1,25 @@
-using System.Diagnostics;
 using BlogApp.Data.Abstract;
-using BlogApp.Data.Concrete.EfCore;
+using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Controllers;
 
 public class PostsController : Controller
 {
+    public IPostRepository _postRepository { get; set; }
+    public ITagRepository _tagRepository { get; set; }
 
-    public IPostRepository _repository { get; set; }
-
-    public PostsController(IPostRepository repository) 
+    public PostsController(IPostRepository postRepository,ITagRepository tagRepository) 
     {
-        _repository = repository;
+        _postRepository = postRepository;
+        _tagRepository = tagRepository;
     }
     public IActionResult Index()
     {
-        return View(_repository.Posts.ToList());
+        var model = new PostViewModel{
+                Posts = _postRepository.Posts.ToList(),
+                Tags = _tagRepository.Tags.ToList()
+                };
+        return View(model);
     }
 }

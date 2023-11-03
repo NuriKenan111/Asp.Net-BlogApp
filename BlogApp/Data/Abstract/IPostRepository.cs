@@ -2,9 +2,8 @@ using BlogApp.Entity;
 
 namespace BlogApp.Data.Abstract;
 
-public interface IPostRepository
+public interface ITagRepository
 {
-    IQueryable<Post> Posts { get; }
-
-    void CreatePost(Post post);
+    IQueryable<Tag> Tags { get; }
+    void CreateTag(Tag tag);
 }

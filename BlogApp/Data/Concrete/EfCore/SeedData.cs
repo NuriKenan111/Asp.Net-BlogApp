@@ -35,6 +35,7 @@ public static class SeedData
                         Content = "Asp.Net Core 8.0 is in preview",
                         PublishedOn = DateTime.Now.AddDays(-10),
                         Tags = context.Tags.Take(3).ToList(),
+                        Image = "1.jpg",
                         IsActive = true,
                         UserId = 1
                     },
@@ -43,6 +44,7 @@ public static class SeedData
                         Content = "Php is in preview",
                         PublishedOn = DateTime.Now.AddDays(-20),
                         Tags = context.Tags.Take(2).ToList(),
+                        Image = "2.jpg",
                         IsActive = true,
                         UserId = 1
                     },
@@ -51,6 +53,7 @@ public static class SeedData
                         Content = "React Js is in preview",
                         PublishedOn = DateTime.Now.AddDays(-5),
                         Tags = context.Tags.Take(4).ToList(),
+                        Image = "3.jpg",
                         IsActive = true,
                         UserId = 2
                     }
