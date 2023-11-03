@@ -61,3 +61,7 @@
 /Users/kenan/Desktop/BlogApp/BlogApp/obj/Debug/net7.0/BlogApp.pdb
 /Users/kenan/Desktop/BlogApp/BlogApp/obj/Debug/net7.0/BlogApp.genruntimeconfig.cache
 /Users/kenan/Desktop/BlogApp/BlogApp/obj/Debug/net7.0/ref/BlogApp.dll
+/Users/kenan/Desktop/BlogApp/BlogApp/obj/Debug/net7.0/BlogApp.RazorAssemblyInfo.cache
+/Users/kenan/Desktop/BlogApp/BlogApp/obj/Debug/net7.0/BlogApp.RazorAssemblyInfo.cs
+/Users/kenan/Desktop/BlogApp/BlogApp/bin/Debug/net7.0/libman.json
+/Users/kenan/Desktop/BlogApp/BlogApp/bin/Debug/net7.0/BlogApp.staticwebassets.runtime.json
