@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "O+9FRIYTFhv9/Q7hC0k0hiOO0Ce1V4lqLAKANpxk0pU=",
+  "Hash": "+RZLyHJYLRlzQ5XiTMQGHmvpskHTAL4h7m6XqIPnRx4=",
   "Source": "BlogApp",
   "BasePath": "_content/BlogApp",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/img/p2.jpg"
+    },
+    {
+      "Identity": "/Users/kenan/Desktop/BlogApp/BlogApp/wwwroot/js/script.js",
+      "SourceId": "BlogApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kenan/Desktop/BlogApp/BlogApp/wwwroot/",
+      "BasePath": "_content/BlogApp",
+      "RelativePath": "js/script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/script.js"
     },
     {
       "Identity": "/Users/kenan/Desktop/BlogApp/BlogApp/wwwroot/lib/bootstrap-icons/bootstrap-icons.svg",

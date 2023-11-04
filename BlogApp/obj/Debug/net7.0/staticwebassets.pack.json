@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets/img/p2.jpg"
     },
     {
+      "Id": "/Users/kenan/Desktop/BlogApp/BlogApp/wwwroot/js/script.js",
+      "PackagePath": "staticwebassets/js/script.js"
+    },
+    {
       "Id": "/Users/kenan/Desktop/BlogApp/BlogApp/wwwroot/lib/bootstrap-icons/bootstrap-icons.svg",
       "PackagePath": "staticwebassets/lib/bootstrap-icons/bootstrap-icons.svg"
     },

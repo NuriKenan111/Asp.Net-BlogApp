@@ -1,0 +1,51 @@
+@model Post
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="bg-white p-4">
+            <h1 class="h4 mb-4">@Model.Title</h1>
+            <div class="tags">
+                @foreach (var tag in Model.Tags)
+                {
+                    <a href="/posts/tag/@tag.Url" class="badge bg-@tag.Color bg-opacity-10 text-@tag.Color mb-2 fw-bold">@tag.Text</a>
+                }
+            </div>
+            
+            <img src="~/img/@Model.Image" class="img-fluid rounded" alt="">
+            <div>
+                @Model.Content
+            </div>
+        </div>
+        <div class="bg-white mt-3">
+            <div class="card border-0">
+                <div class="card-header pb-0">
+                    @if (Model.Comments.Count() == 0)
+                        <h4>No comments</h4>
+                    else{
+                        <h4>@Model.Comments.Count() @((Model.Comments.Count() == 1) ? "Comment" : "Comments")</h4>
+                    }
+                </div>
+                <div class="card-body">
+                    @foreach (var comment in Model.Comments){
+                        <div class="my-4 d-flex">
+                            <img src="/img/@comment.User.Image" alt="" class="avatar rouded-circle float-start me-3">
+                            <div class="mb-3">
+                                <h6 class="mb-0">@comment.User.UserName</h6>
+                                <span >@comment.PublishedOn</span>
+                                <hr class="my-lg-0">
+                                <p class="mb-0">@comment.Text</p>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-lg-4"> 
+        <vc:tags-menu></vc:tags-menu>
+        <vc:new-posts></vc:new-posts>
+    </div>
+</div>
+
