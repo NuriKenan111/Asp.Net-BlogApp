@@ -30,33 +30,36 @@
                         @foreach (var comment in Model.Comments){
                             <div class="my-4 d-flex">
                                 <img src="/img/@comment.User.Image" alt="" class="avatar rouded-circle float-start me-3">
-                                <div class="mb-2">
-                                    <h6 class="mb-0">@comment.User.UserName</h6>
-                                    <span>@comment.PublishedOn.ToString("dd-MM-yyyy")</span>
-                                    <p class="mb-0">@comment.Text</p>
+                                <div>
+                                    <div class="mb-2 d-flex">
+                                        <h6 class="me-2">@comment.User.UserName</h6>
+                                        <small>@comment.PublishedOn.ToString("dd-MM-yyyy")</small>
+                                    </div>
+                                    <p>@comment.Text</p>
                                 </div>
-                                
                             </div>
                         }
                     </div> 
                     
-                    <hr class="my-4">
-                    <h4 class="mb-4">Add a comment</h4>
-                    <form method="post" action="/posts/AddComment">
-                        <input type="hidden" id="PostId" name="PostId" value="@Model.PostId">
-                        <div class="mb-3">
-                            <label for="UserName" class="form-label">UserName</label>
-                            <input type="text" class="form-control" id="UserName" name="UserName">
-                        </div>
-                        <div class="mb-3">
-                            <label for="Text" class="form-label">Comment</label>
-                            <textarea type="text" class="form-control" id="Text" rows="3" name="Text"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <button id="btnCommentRegister" type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
+                    <hr class="mb-4">
+                    @if(User.Identity!.IsAuthenticated){
+                        <h4 class="mb-3">Add a comment</h4>
+                        <form method="post" action="/posts/AddComment">
+                            <input type="hidden" id="PostId" name="PostId" value="@Model.PostId">
+                            <div class="mb-3">
+                                <label for="Text" class="form-label">Comment</label>
+                                <textarea type="text" class="form-control" id="Text" rows="3" name="Text"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button id="btnCommentRegister" type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
 
+                    }
+                    else{
+                        <h4 class="mb-3"><a href="/users/login">Login</a> to comment</h4>
+                    }
+                    
                 </div>
             </div>
         </div>
@@ -84,17 +87,20 @@
                         Text: $("#Text").val(),
                     },
                     success: function(comment){
+                        console.log(comment);
                         var date = new Date(comment.publishedOn);
                       
                         $("#comments").append(`
                             <div class="my-4 d-flex">
-                                <img src="/img/${comment.image}" alt="" class="avatar rouded-circle float-start me-3">
+                                <img src="/img/${comment.avatar}" alt="" class="avatar rouded-circle float-start me-3">
                                 <div>
-                                    <div class="mb-2">
-                                        <h6 class="mb-0">${comment.userName}</h6>
-                                        <span>${date.toLocaleDateString()}</span>
-                                        <p class="mb-0">${comment.text}</p>
-                                     </div>
+                                    <div>
+                                        <div class="mb-2 d-flex">
+                                            <h6 class="mb-0">${comment.username}</h6>
+                                            <span>${date.toLocaleDateString()}</span>
+                                            <p class="mb-0">${comment.text}</p>
+                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         `);
