@@ -19,24 +19,43 @@
         <div class="bg-white mt-3">
             <div class="card border-0">
                 <div class="card-header pb-0">
-                    @if (Model.Comments.Count() == 0)
+                    @if (Model.Comments.Count() == 0){
                         <h4>No comments</h4>
+                    }
                     else{
                         <h4>@Model.Comments.Count() @((Model.Comments.Count() == 1) ? "Comment" : "Comments")</h4>
                     }
                 </div>
                 <div class="card-body">
-                    @foreach (var comment in Model.Comments){
-                        <div class="my-4 d-flex">
-                            <img src="/img/@comment.User.Image" alt="" class="avatar rouded-circle float-start me-3">
-                            <div class="mb-3">
-                                <h6 class="mb-0">@comment.User.UserName</h6>
-                                <span >@comment.PublishedOn</span>
-                                <hr class="my-lg-0">
-                                <p class="mb-0">@comment.Text</p>
+                    <div id="comments">
+                        @foreach (var comment in Model.Comments){
+                            <div class="my-4 d-flex">
+                                <img src="/img/@comment.User.Image" alt="" class="avatar rouded-circle float-start me-3">
+                                <div class="mb-2">
+                                    <h6 class="mb-0">@comment.User.UserName</h6>
+                                    <span>@comment.PublishedOn.ToString("dd-MM-yyyy")</span>
+                                    <p class="mb-0">@comment.Text</p>
+                                </div>
                             </div>
+                        }
+                    </div> 
+                    
+                    <hr class="my-4">
+                    <h4 class="mb-4">Add a comment</h4>
+                    <form method="post" action="/posts/AddComment">
+                        <input type="hidden" id="PostId" name="PostId" value="@Model.PostId">
+                        <div class="mb-3">
+                            <label for="UserName" class="form-label">UserName</label>
+                            <input type="text" class="form-control" id="UserName" name="UserName">
                         </div>
-                    }
+                        <div class="mb-3">
+                            <label for="Text" class="form-label">Comment</label>
+                            <textarea type="text" class="form-control" id="Text" rows="3" name="Text"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <button id="btnCommentRegister" type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
 
                 </div>
             </div>
@@ -48,4 +67,41 @@
         <vc:new-posts></vc:new-posts>
     </div>
 </div>
+
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#btnCommentRegister").click(function(){
+                $.ajax({
+                    type:  'POST',
+                    url: '@Url.Action("AddComment")',
+                    dataType: 'json',
+                    data: {
+                        PostId: $("#PostId").val(),
+                        UserName: $("#UserName").val(),
+                        Text: $("#Text").val(),
+                    },
+                    success: function(comment){
+                        $("#comments").append(`
+                            <div class="my-4 d-flex">
+                                <img src="/img/${comment.image}" alt="" class="avatar rouded-circle float-start me-3">
+                                <div class="mb-2">
+                                    <h6 class="mb-0">${comment.userName}</h6>
+                                    <span>${comment.publishedOn}</span>
+                                    <p class="mb-0">${comment.text}</p>
+                                </div>
+                            </div>
+                        `);
+                        $("#UserName").val("");
+                        $("#Text").val("");
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}
+
 

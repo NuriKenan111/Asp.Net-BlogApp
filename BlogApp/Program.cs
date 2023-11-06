@@ -15,6 +15,7 @@ builder.Services.AddDbContext<BlogContext>(options =>{
 });
 
 builder.Services.AddScoped<IPostRepository, EfPostRepository>();
+builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 
 var app = builder.Build();
@@ -25,7 +26,7 @@ app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "post_details",
-    pattern: "posts/{url}",
+    pattern: "posts/details/{url}",
     defaults: new {controller = "Posts", action = "Details"}
 
 );
