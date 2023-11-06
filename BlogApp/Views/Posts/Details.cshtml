@@ -18,12 +18,11 @@
         </div>
         <div class="bg-white mt-3">
             <div class="card border-0">
-                <div class="card-header pb-0">
                     @if (Model.Comments.Count() == 0){
                         <h4>No comments</h4>
                     }
                     else{
-                        <h4>@Model.Comments.Count() @((Model.Comments.Count() == 1) ? "Comment" : "Comments")</h4>
+                        <h4><span id ="commentCount">@Model.Comments.Count()</span> @((Model.Comments.Count() == 1) ? "Comment" : "Comments")</h4>
                     }
                 </div>
                 <div class="card-body">
@@ -31,11 +30,14 @@
                         @foreach (var comment in Model.Comments){
                             <div class="my-4 d-flex">
                                 <img src="/img/@comment.User.Image" alt="" class="avatar rouded-circle float-start me-3">
-                                <div class="mb-2">
-                                    <h6 class="mb-0">@comment.User.UserName</h6>
-                                    <span>@comment.PublishedOn.ToString("dd-MM-yyyy")</span>
-                                    <p class="mb-0">@comment.Text</p>
+                                <div>
+                                    <div class="mb-2">
+                                        <h6 class="mb-0">@comment.User.UserName</h6>
+                                        <span>@comment.PublishedOn.ToString("dd-MM-yyyy")</span>
+                                        <p class="mb-0">@comment.Text</p>
+                                    </div>
                                 </div>
+                                
                             </div>
                         }
                     </div> 
@@ -84,18 +86,24 @@
                         Text: $("#Text").val(),
                     },
                     success: function(comment){
+                        var date = new Date(comment.publishedOn);
+                      
                         $("#comments").append(`
                             <div class="my-4 d-flex">
                                 <img src="/img/${comment.image}" alt="" class="avatar rouded-circle float-start me-3">
-                                <div class="mb-2">
-                                    <h6 class="mb-0">${comment.userName}</h6>
-                                    <span>${comment.publishedOn}</span>
-                                    <p class="mb-0">${comment.text}</p>
+                                <div>
+                                    <div class="mb-2">
+                                        <h6 class="mb-0">${comment.userName}</h6>
+                                        <span>${date.toLocaleDateString()}</span>
+                                        <p class="mb-0">${comment.text}</p>
+                                     </div>
                                 </div>
                             </div>
                         `);
                         $("#UserName").val("");
                         $("#Text").val("");
+                        var count = parseInt($("#commentCount").text());
+                        $("#commentCount").text(count + 1);
                     }
                 });
                 return false;
