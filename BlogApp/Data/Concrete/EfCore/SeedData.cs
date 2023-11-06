@@ -23,8 +23,8 @@ public static class SeedData
             }
             if(!context.Users.Any()){
                 context.Users.AddRange(
-                    new User {UserName = "KenanNuri",Image = "p1.jpg"},
-                    new User {UserName = "IsmayilRhmv",Image = "p2.jpg"}
+                    new User {UserName = "KenanNuri",Name = "Kenan",Email = "kenan@gmail.com",Password = "kenan123",Image = "p1.jpg"},
+                    new User {UserName = "IsmayilRhmv",Name = "Ismayil",Email = "ismayil@gmail.com",Password = "ismayil123",Image = "p2.jpg"}
                 );
                 context.SaveChanges();
             }
