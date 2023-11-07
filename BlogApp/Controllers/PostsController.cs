@@ -6,6 +6,7 @@ using BlogApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BlogApp.Controllers;
 
@@ -22,7 +23,7 @@ public class PostsController : Controller
     public async Task<IActionResult> Index(string tag)
     {
         var claims = User.Claims;
-        var model = _postRepository.Posts;
+        var model = _postRepository.Posts.Where(p => p.IsActive);
         if(!string.IsNullOrEmpty(tag))
         {
             model = model.Where(p => p.Tags.Any(t => t.Url == tag));
@@ -99,8 +100,44 @@ public class PostsController : Controller
             posts = posts.Where(p => p.UserId == userId);
         }
         return View(await posts.ToListAsync());
+    }
+
+    [Authorize]
+    public IActionResult Edit(int? id){
+        if(id == null) return NotFound();
         
-        
+        var posts = _postRepository.Posts.FirstOrDefault(p => p.PostId == id);
+
+        if(posts == null) return NotFound();
+
+        return View(
+            new PostCreateViewModel { 
+                PostId = posts.PostId,
+                Title = posts.Title,
+                Description = posts.Description,
+                Content = posts.Content,
+                Url = posts.Url,
+                IsActive = posts.IsActive
+            }
+        );
+    }
+
+    [Authorize]
+    [HttpPost]
+    public IActionResult Edit(PostCreateViewModel model){
+        if(ModelState.IsValid){
+            var entityUpdate = new Post{
+                PostId = model.PostId,
+                Title = model.Title,
+                Description = model.Description,
+                Content = model.Content,
+                Url = model.Url,
+                IsActive = model.IsActive
+            };
+            _postRepository.EditPost(entityUpdate);
+            return RedirectToAction("List");
+        }
+        return View(model);
     }
 }
 

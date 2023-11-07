@@ -3,12 +3,12 @@
 <div class="row">
     <div class="col-12">
         <a href="/posts/create" class="btn btn-primary">New Post</a>
-       <table class="table table-bordered">
+       <table class="table table-bordered mt-3">
             <thead>
                 <tr>
                     <th style="width: 200px;">Image</th>
-                    <th>Id</th>
                     <th>Title</th>
+                    <th>Is Active</th>
                     <th style="width: 125px;"></th>
                 </tr>
             </thead>
@@ -16,8 +16,8 @@
                 @foreach(var item in Model){
                     <tr>
                         <td><img src="/img/@item.Image" class="img-thumbnail" alt=""></td>
-                        <td>@item.PostId</td>
                         <td>@item.Title</td>
+                        <td>@item.IsActive</td>
                         <td>
                             <a href="/posts/edit/@item.PostId" class="btn btn-primary">Edit</a>
                             <a href="/posts/delete/@item.PostId" class="btn btn-danger">Delete</a>

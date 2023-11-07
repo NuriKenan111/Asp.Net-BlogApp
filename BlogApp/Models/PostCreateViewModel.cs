@@ -4,6 +4,8 @@ namespace BlogApp.Models;
 
 public class PostCreateViewModel
 {
+    public int PostId { get; set; }
+    
     [Required]
     [Display]
     public string? Title { get; set; }
@@ -20,4 +22,6 @@ public class PostCreateViewModel
     [Required]
     [Display]
     public string? Url { get; set; }
+
+    public bool IsActive { get; set; }
 }

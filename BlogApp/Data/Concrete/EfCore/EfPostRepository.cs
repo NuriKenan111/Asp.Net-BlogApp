@@ -19,4 +19,19 @@ public class EfPostRepository : IPostRepository
         _context.Posts.Add(post);
         _context.SaveChanges();
     }
+
+    public void EditPost(Post post)
+    {
+        var entity = _context.Posts.FirstOrDefault(p => p.PostId == post.PostId);
+
+        if(entity != null)
+        {
+            entity.Title = post.Title;
+            entity.Description = post.Description;
+            entity.Content = post.Content;
+            entity.Url = post.Url;
+            entity.IsActive = post.IsActive;
+            _context.SaveChanges();
+        }
+    }
 }
