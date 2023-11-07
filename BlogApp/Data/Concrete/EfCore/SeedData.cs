@@ -33,6 +33,7 @@ public static class SeedData
                     new Post {
                         Title = "Asp.Net Core 8.0",
                         Content = "Asp.Net Core 8.0 is in preview",
+                        Description = "Asp.Net Core 8.0 is in preview",
                         Url = "aspnetcore8",
                         PublishedOn = DateTime.Now.AddDays(-10),
                         Tags = context.Tags.Take(3).ToList(),
@@ -55,6 +56,7 @@ public static class SeedData
                     new Post {
                         Title = "Php ",
                         Content = "Php Laravel is in preview",
+                        Description = "Php Laravel is in preview",
                         Url = "php",
                         PublishedOn = DateTime.Now.AddDays(-20),
                         Tags = context.Tags.Take(2).ToList(),
@@ -65,6 +67,7 @@ public static class SeedData
                     new Post {
                         Title = "Angular ",
                         Content = "Angular Lessons",
+                        Description = "Angular Lessons",
                         Url = "angular",
                         PublishedOn = DateTime.Now.AddDays(-10),
                         Tags = context.Tags.Take(2).ToList(),
@@ -75,6 +78,7 @@ public static class SeedData
                     new Post {
                         Title = "React",
                         Content = "React is in preview",
+                        Description = "React is in preview",
                         Url = "react-lessons",
                         PublishedOn = DateTime.Now.AddDays(-5),
                         Tags = context.Tags.Take(2).ToList(),
@@ -85,6 +89,7 @@ public static class SeedData
                     new Post {
                         Title = "Django",
                         Content = "Django is in preview",
+                        Description = "Django is in preview",
                         Url = "django",
                         PublishedOn = DateTime.Now.AddDays(-5),
                         Tags = context.Tags.Take(4).ToList(),
