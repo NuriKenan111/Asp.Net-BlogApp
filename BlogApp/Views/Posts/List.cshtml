@@ -1,0 +1,43 @@
+@model List<Post>
+
+<div class="row">
+    <div class="col-12">
+        <a href="/posts/create" class="btn btn-primary">New Post</a>
+       <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 200px;">Image</th>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th style="width: 125px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model){
+                    <tr>
+                        <td><img src="/img/@item.Image" class="img-thumbnail" alt=""></td>
+                        <td>@item.PostId</td>
+                        <td>@item.Title</td>
+                        <td>
+                            <a href="/posts/edit/@item.PostId" class="btn btn-primary">Edit</a>
+                            <a href="/posts/delete/@item.PostId" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+       </table>
+    </div>  
+</div>
+
+
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.7.2/tinymce.min.js" ></script>
+
+    <script>
+        tinymce.init({
+            selector: '#Content',
+        })
+    </script>
+}
+
