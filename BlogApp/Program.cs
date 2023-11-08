@@ -37,10 +37,16 @@ SeedData.FillTestData(app);
 app.UseStaticFiles();
 
 app.MapControllerRoute(
+    name: "user_profile",
+    pattern: "profile/{username}",
+    defaults: new {controller = "Users", action = "Profile"}
+
+);
+
+app.MapControllerRoute(
     name: "post_details",
     pattern: "posts/details/{url}",
     defaults: new {controller = "Posts", action = "Details"}
-
 );
 
 app.MapControllerRoute(
@@ -49,6 +55,7 @@ app.MapControllerRoute(
     defaults: new {controller = "Posts", action = "Index"}
 
 );
+
 
 app.MapControllerRoute(
     name: "default",

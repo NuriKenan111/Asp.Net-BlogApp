@@ -46,7 +46,6 @@ public class UsersController : Controller
 
                 if(isUser.Email == "kenan@gmail.com"){
                     userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
-
                 }
                 var identity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
                 
@@ -94,5 +93,20 @@ public class UsersController : Controller
             }
         }
         return View(model);
+    }
+    public IActionResult Profile(string username){
+        if(string.IsNullOrEmpty(username))
+            return NotFound();
+        
+        var user = _userRepository
+        .Users
+        .Include(user => user.Posts)
+        .Include(user => user.Comments)
+        .ThenInclude(post => post.Post)
+        .FirstOrDefault(user => user.UserName == username);
+        if(user == null)
+            return NotFound();
+
+        return View(user);
     }
 }

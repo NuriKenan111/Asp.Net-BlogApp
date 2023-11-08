@@ -1,12 +1,10 @@
 using System.Security.Claims;
 using BlogApp.Data.Abstract;
-using BlogApp.Data.Concrete.EfCore;
 using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BlogApp.Controllers;
 
@@ -37,6 +35,7 @@ public class PostsController : Controller
     {
        var post = await _postRepository
                     .Posts
+                    .Include(p => p.User)
                     .Include(p => p.Tags)
                     .Include(p => p.Comments)
                     .ThenInclude(c => c.User)
@@ -83,7 +82,7 @@ public class PostsController : Controller
                     PublishedOn = DateTime.Now,
                     UserId = int.Parse(userId ?? ""),
                     Image = "1.jpg",
-                    IsActive = true,
+                    IsActive = false,
                 }
             );
             return RedirectToAction("Index");
@@ -132,8 +131,10 @@ public class PostsController : Controller
                 Description = model.Description,
                 Content = model.Content,
                 Url = model.Url,
-                IsActive = model.IsActive
             };
+            if(User.FindFirstValue(ClaimTypes.Role) == "admin"){
+                entityUpdate.IsActive = model.IsActive;
+            }
             _postRepository.EditPost(entityUpdate);
             return RedirectToAction("List");
         }
