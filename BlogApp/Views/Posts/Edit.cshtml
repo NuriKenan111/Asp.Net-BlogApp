@@ -1,10 +1,10 @@
 @model PostCreateViewModel
 
+<form action="Edit" method="post">
 <div class="row">
-    <div class="col-12">
+    <div class="col-9">
         <div class="bg-white p-4">
             <h1>Post Edit</h1>
-            <form action="Edit" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for = "PostId">
                 <div class="mb-3">
@@ -34,10 +34,27 @@
                     </div>
                 }
                 <button type="submit" class="btn btn-primary">Edit</button>
-            </form>
+            </div>
+        </div>  
+        <div class="col-3">
+            @foreach(var tag in ViewBag.Tags)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" 
+                        name="tagIds"
+                        type="checkbox" 
+                        value="@tag.TagId" 
+                        id="tag_@tag.TagId" 
+                        @(Model.Tags.Any(i => i.TagId == tag.TagId) ? "checked" : "")
+                        >
+                        <label class="form-check-label" for="tag_@tag.TagId">
+                            @tag.Text
+                        </label>
+                    </div>
+                }
         </div>
-    </div>  
-</div>
+    </div>
+</form>
 
 
 

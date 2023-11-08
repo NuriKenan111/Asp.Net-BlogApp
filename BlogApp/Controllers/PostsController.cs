@@ -12,11 +12,13 @@ public class PostsController : Controller
 {
     public IPostRepository _postRepository;
     public ICommentRepository _commentRepository;
+    public ITagRepository _tagRepository;
 
-    public PostsController(IPostRepository postRepository, ICommentRepository commentRepository) 
+    public PostsController(IPostRepository postRepository, ICommentRepository commentRepository, ITagRepository tagRepository) 
     {
         _postRepository = postRepository;
         _commentRepository = commentRepository;
+        _tagRepository = tagRepository;
     }
     public async Task<IActionResult> Index(string tag)
     {
@@ -105,10 +107,14 @@ public class PostsController : Controller
     public IActionResult Edit(int? id){
         if(id == null) return NotFound();
         
-        var posts = _postRepository.Posts.FirstOrDefault(p => p.PostId == id);
+        var posts = _postRepository
+        .Posts
+        .Include(p => p.Tags)
+        .FirstOrDefault(p => p.PostId == id);
 
         if(posts == null) return NotFound();
-
+        
+        ViewBag.Tags = _tagRepository.Tags.ToList();
         return View(
             new PostCreateViewModel { 
                 PostId = posts.PostId,
@@ -116,14 +122,16 @@ public class PostsController : Controller
                 Description = posts.Description,
                 Content = posts.Content,
                 Url = posts.Url,
-                IsActive = posts.IsActive
+                IsActive = posts.IsActive,
+                Tags = posts.Tags
+
             }
         );
     }
 
     [Authorize]
     [HttpPost]
-    public IActionResult Edit(PostCreateViewModel model){
+    public IActionResult Edit(PostCreateViewModel model,int[] tagIds){
         if(ModelState.IsValid){
             var entityUpdate = new Post{
                 PostId = model.PostId,
@@ -135,9 +143,10 @@ public class PostsController : Controller
             if(User.FindFirstValue(ClaimTypes.Role) == "admin"){
                 entityUpdate.IsActive = model.IsActive;
             }
-            _postRepository.EditPost(entityUpdate);
+            _postRepository.EditPost(entityUpdate,tagIds);
             return RedirectToAction("List");
         }
+        ViewBag.Tags = _tagRepository.Tags.ToList();
         return View(model);
     }
 }
