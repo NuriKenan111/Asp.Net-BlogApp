@@ -21,6 +21,17 @@ public class EfPostRepository : IPostRepository
         _context.SaveChanges();
     }
 
+    public void DeletePost(int postId)
+    {
+        var entity = _context.Posts.FirstOrDefault(p => p.PostId == postId);
+            
+        if(entity != null)
+        {
+            _context.Posts.Remove(entity);
+            _context.SaveChanges();
+        }
+    }
+
     public void EditPost(Post post)
     {
         var entity = _context.Posts.FirstOrDefault(p => p.PostId == post.PostId);

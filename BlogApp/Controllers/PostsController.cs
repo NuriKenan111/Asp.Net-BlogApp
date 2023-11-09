@@ -149,5 +149,23 @@ public class PostsController : Controller
         ViewBag.Tags = _tagRepository.Tags.ToList();
         return View(model);
     }
+
+     public async Task<IActionResult> Delete(int? id)
+   {
+        if(id == null)
+            return NotFound();
+        
+        var post = await _postRepository.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+        if(post == null)
+            return NotFound();
+        
+        return View(post);
+   }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id){
+        _postRepository.DeletePost(id);
+        return RedirectToAction("List");
+    }
 }
 

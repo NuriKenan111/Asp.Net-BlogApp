@@ -1,0 +1,13 @@
+@model Post
+<p>
+    do you want to delete the Post named <b>@Model.Title</b>?
+    <form asp-action="Delete" method="post">
+       <input type="hidden" value="@Model.PostId" name="id">
+       <button class="btn btn-danger" type="submit">Yes</button>
+       <a class="btn btn-primary" asp-action="Index">No</a>
+    </form>
+</p>
+
+
+
+
